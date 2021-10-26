@@ -3,12 +3,33 @@ import express from 'express';
 const app = express();
 const port = 3000;
 
-app.get('/users/:name', (_request, response) => {
-  response.send(_request.params.name);
+const users = ['Iva', 'Mateo', 'Robert', 'Sascha'];
+
+app.delete('/api/users/:name', (_request, response) => {
+  const name = _request.params.name;
+  const isNameKnown = users.includes(_request.params.name);
+  if (isNameKnown) {
+    users.splice(users.indexOf(name), 1);
+    response.send(`${name} is deleted.`);
+  } else {
+    response.send('This Person was not found in the Database');
+  }
 });
 
-app.get('/users', (_request, response) => {
-  const users = ['Iva', 'Mateo', 'Robert', 'Sascha'];
+app.get('/api/users/:name', (_request, response) => {
+  const isNameKnown = users.includes(_request.params.name);
+  if (isNameKnown) {
+    response.send(_request.params.name);
+  } else {
+    response.status(404).send("Sorry can't find that!");
+  }
+});
+
+/*app.get('/api/users/:name', (_request, response) => {
+  response.send(_request.params.name);
+});*/
+
+app.get('/api/users', (_request, response) => {
   response.send(users);
 });
 

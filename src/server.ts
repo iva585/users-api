@@ -7,12 +7,12 @@ const users = ['Iva', 'Mateo', 'Robert', 'Sascha'];
 
 app.delete('/api/users/:name', (_request, response) => {
   const name = _request.params.name;
-  const isNameKnown = users.includes(_request.params.name);
-  if (isNameKnown) {
-    users.splice(users.indexOf(name), 1);
+  const index = users.indexOf(name);
+  if (index !== -1) {
+    users.splice(index, 1);
     response.send(`${name} is deleted.`);
   } else {
-    response.send('This Person was not found in the Database');
+    response.status(404).send('This Person was not found in the Database');
   }
 });
 

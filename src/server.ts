@@ -3,12 +3,15 @@ import express from 'express';
 const app = express();
 const port = 3000;
 
+//Middleware for parsing aplication/json
 app.use(express.json());
 
 const users = ['Iva', 'Mateo', 'Robert', 'Sascha'];
 
 app.post('/api/users', (_request, response) => {
-  response.send(_request.body);
+  const newUser = _request.body;
+  users.push(newUser.name);
+  response.send(`${newUser.name} added.`);
 });
 
 app.delete('/api/users/:name', (_request, response) => {

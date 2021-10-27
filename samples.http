@@ -31,7 +31,12 @@ POST http://localhost:3000/api/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "robi585",
-    "password": "176"
+    "username": "iva",
+    "password": "74837"
 }
+
+### GET logged in user
+
+GET http://localhost:3000/api/me HTTP/1.1
+
 
